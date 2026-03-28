@@ -1,17 +1,167 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Word Tiger — Landing Page</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-DKll3OL7.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C0xnAx_V.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Tiger</title>
+
+  <!-- Basic SEO -->
+  <meta name="description" content="Word Tiger is a smart, grid-based word puzzle game that rewards careful thinking and vocabulary." />
+  <meta name="theme-color" content="#f97316" />
+
+  <!-- Styles -->
+  <style>
+    :root {
+      --bg: #0b0b0b;
+      --text: #f5f5f5;
+      --muted: #a3a3a3;
+      --accent: #f97316;
+      --accent-dark: #c2410c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1a1a1a, var(--bg));
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 1100px;
+      padding: 2rem;
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .logo {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .tagline {
+      color: var(--muted);
+      font-size: 1.2rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .actions {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      padding: 0.9rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+
+    .button-primary {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .button-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .button-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid #333;
+    }
+
+    .button-secondary:hover {
+      background: #1f1f1f;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      margin-top: 4rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    @media (min-width: 768px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <header>
+      <div class="logo">🐯 Word Tiger</div>
+      <div class="tagline">A smart, grid‑based word puzzle</div>
+    </header>
+
+    <section class="hero">
+      <h1>Think Sharper. Play Smarter.</h1>
+      <p>
+        Word Tiger is a word puzzle game where every move matters.
+        Build valid words, navigate constraints, and solve the grid
+        through careful planning and vocabulary.
+      </p>
+
+      <div class="actions">
+        <a href="#" class="button button-primary">Play the Game</a>
+        <a href="#" class="button button-secondary">Learn More</a>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Word Tiger
+    </footer>
+  </main>
+
+  <script>
+    // Auto-update year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
