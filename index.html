@@ -1,17 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Word Tiger — Landing Page</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-DKll3OL7.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C0xnAx_V.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Tiger</title>
+
+  <meta name="description" content="Word Tiger is a smart, grid‑based word puzzle that rewards planning, vocabulary, and strategy." />
+  <meta name="theme-color" content="#f97316" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --fg: #f5f5f7;
+      --muted: #9494a8;
+      --accent: #f97316;
+      --accent-dark: #ea6200;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(13,13,15,0.75);
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+
+    header img {
+      height: 36px;
+    }
+
+    .cta {
+      background: var(--accent);
+      color: #000;
+      padding: 0.6rem 1.1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      transition: transform .15s ease, background .15s ease;
+    }
+
+    .cta:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 8rem 2rem 4rem;
+      background:
+        radial-gradient(circle at center, rgba(249,115,22,.25), transparent 60%),
+        url("tiger-bg.png") center / cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .hero img {
+      width: 140px;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin-top: 1rem;
+      font-size: 1.25rem;
+      color: var(--muted);
+      max-width: 640px;
+      margin-inline: auto;
+    }
+
+    .buttons {
+      margin-top: 2.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      border: 1px solid #2a2a32;
+      padding: 0.9rem 1.4rem;
+      border-radius: 10px;
+      background: #1a1a1f;
+      font-weight: 700;
+      transition: transform .15s ease, border .15s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    section {
+      padding: 6rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 3rem;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #1a1a1f;
+      border: 1px solid #2a2a32;
+      border-radius: 14px;
+      padding: 2rem;
+    }
+
+    .card h3 {
+      margin-bottom: .5rem;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      border-top: 1px solid #2a2a32;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <img src="logo-icon.png" alt="Word Tiger logo">
+  <a class="cta" href="#">Download Free</a>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <img src="logo-icon.png" alt="Word Tiger">
+    <h1>Word Tiger</h1>
+    <p class="subtitle">
+      A grid‑based word puzzle where every letter matters.
+      Think ahead, plan carefully, and build the perfect solution.
+    </p>
+
+    <div class="buttons">
+      <a class="button" href="#">App Store</a>
+      <a class="button" href="#">Google Play</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Why Word Tiger?</h2>
+
+  <div class="features">
+    <div class="card">
+      <h3>Grid‑Based Strategy</h3>
+      <p>Each word affects future moves. There’s no guessing — only decisions.</p>
+    </div>
+    <div class="card">
+      <h3>No Timers</h3>
+      <p>Play at your pace. Every puzzle rewards careful thinking.</p>
+    </div>
+    <div class="card">
+      <h3>Clean & Distraction‑Free</h3>
+      <p>No ads, no logins, no pressure — just the puzzle.</p>
+    </div>
+    <div class="card">
+      <h3>Designed for Touch</h3>
+      <p>Smooth, responsive gameplay built for mobile devices.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> Word Tiger
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
 </html>
