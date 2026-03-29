@@ -8,9 +8,9 @@
   <meta name="description" content="Word Tiger is a smart, grid-based word puzzle game where every letter matters." />
   <meta name="theme-color" content="#f97316" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  https://fonts.googleapis.com
+  https://fonts.gstatic.com
+  https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap
 
   <style>
     :root {
@@ -73,80 +73,18 @@
       transform: translateY(-2px);
     }
 
-    /* Hero */
+    /* Hero — image-based */
     .hero {
-      min-height: 100vh;
-      padding: 9rem 2rem 4rem;
-      background:
-        radial-gradient(circle at center, rgba(249,115,22,.22), transparent 60%),
-        url("tiger-bg.png") center / cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding-top: 6rem; /* accounts for fixed header */
+      background: #000;
       text-align: center;
     }
 
-    .hero-content {
-      max-width: 900px;
-    }
-
-    .hero-image {
-      width: 260px;
-      max-width: 70vw;
-      margin-bottom: 2rem;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,.6));
-    }
-
-    h1 {
-      font-size: clamp(3rem, 7vw, 5rem);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-    }
-
-    /* Subtitle box */
-    .subtitle-box {
-      margin-top: 1.75rem;
-      max-width: 680px;
-      margin-inline: auto;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 16px;
-      padding: 1.25rem 1.5rem;
-      box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
-      border: 1px solid rgba(249, 115, 22, 0.25);
-    }
-
-    .subtitle {
-      margin: 0;
-      font-size: 1.2rem;
-      line-height: 1.6;
-      color: #111;
-      font-weight: 500;
-    }
-
-    .buttons {
-      margin-top: 2.5rem;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .button {
-      border: 1px solid #2a2a32;
-      padding: 0.9rem 1.4rem;
-      border-radius: 10px;
-      background: #1a1a1f;
-      font-weight: 700;
-      transition: transform .15s ease, border .15s ease;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
+    .hero img {
+      width: 100%;
+      max-width: 1600px;
+      display: block;
+      margin: 0 auto;
     }
 
     /* Sections */
@@ -171,3 +109,75 @@
 
     .card {
       background: #1a1a1f;
+      border: 1px solid #2a2a32;
+      border-radius: 14px;
+      padding: 2rem;
+    }
+
+    .card h3 {
+      margin-bottom: .5rem;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      border-top: 1px solid #2a2a32;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">Word Tiger</div>
+  #Download Free</a>
+</header>
+
+<!-- HERO IMAGE -->
+<section class="hero">
+  word-tiger-hero.png
+</section>
+
+<section>
+  <h2 class="section-title">Why Word Tiger?</h2>
+
+  <div class="features">
+    <div class="card">
+      <h3>Grid‑Based Strategy</h3>
+      <p>Every word changes the board. You’re solving a system, not guessing a word.</p>
+    </div>
+
+    <div class="card">
+      <h3>No Timers</h3>
+      <p>Take your time. Word Tiger rewards careful planning, not speed.</p>
+    </div>
+
+    <div class="card">
+      <h3>Clean & Focused</h3>
+      <p>No ads, no noise, and no accounts required.</p>
+    </div>
+
+    <div class="card">
+      <h3>Built for Mobile</h3>
+      <p>Designed for touch interactions and short daily sessions.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> Word Tiger
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
