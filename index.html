@@ -3,181 +3,679 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Word Tiger</title>
-
-  <meta name="description" content="Word Tiger is a smart, grid-based word puzzle game where every letter matters." />
+  <title>Word Tiger — The Word Game Where Every Letter Connects</title>
+  <meta name="description" content="Find words, build streaks, and challenge friends. Word Tiger is the fast-paced word game where every letter connects. Free to play on iOS and Android." />
   <meta name="theme-color" content="#f97316" />
-
-  https://fonts.googleapis.com
-  https://fonts.gstatic.com
-  https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap
-
+  <meta property="og:title" content="Word Tiger" />
+  <meta property="og:description" content="The word game where every letter connects. Free to play on iOS and Android." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
   <style>
+    /* ── Reset & tokens ───────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     :root {
-      --bg: #0d0d0f;
-      --fg: #f5f5f7;
-      --muted: #9494a8;
-      --accent: #f97316;
-      --accent-dark: #ea6200;
+      --bg:      #0b0b0b;
+      --surf:    #141414;
+      --surf2:   #1e1e1e;
+      --border:  #262626;
+      --text:    #f5f5f5;
+      --muted:   #a3a3a3;
+      --dim:     #555;
+      --orange:  #f97316;
+      --orange2: #c2410c;
+      --green:   #4ade80;
+      --blue:    #60a5fa;
+      --amber:   #fbbf24;
+      --purple:  #a78bfa;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      font-family: "Inter", system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--fg);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg); color: var(--text);
+      -webkit-font-smoothing: antialiased;
       line-height: 1.5;
     }
+    a { text-decoration: none; color: inherit; }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    /* ── Keyframes ────────────────────────────────────────── */
+    @keyframes fadeUp  { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes bounce  { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-5px); } }
+    @keyframes glow    { 0%,100% { box-shadow:0 0 18px rgba(249,115,22,.25); } 50% { box-shadow:0 0 40px rgba(249,115,22,.55); } }
+    .a0 { animation: fadeUp .6s ease both; }
+    .a1 { animation: fadeUp .6s .1s ease both; }
+    .a2 { animation: fadeUp .6s .2s ease both; }
+    .a3 { animation: fadeUp .6s .3s ease both; }
+
+    /* ── Nav ──────────────────────────────────────────────── */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      display:flex; align-items:center; justify-content:space-between;
+      height:60px; padding:0 20px;
+      transition: background .3s, border-bottom .3s;
+    }
+    nav.scrolled { background:rgba(11,11,11,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+    .nav-brand { display:flex; align-items:center; gap:9px; font-weight:800; font-size:1rem; }
+    .nav-brand em { color:var(--orange); font-style:normal; }
+    .nav-btn {
+      padding:7px 16px; border-radius:8px; font-weight:700; font-size:.875rem;
+      background:var(--orange); color:#fff; border:none; cursor:pointer;
+      transition:background .2s;
+    }
+    .nav-btn:hover { background:var(--orange2); }
+
+    /* ── Logo SVG inline ──────────────────────────────────── */
+    .logo-sq { border-radius:9px; display:block; flex-shrink:0; }
+
+    /* ── Hero ─────────────────────────────────────────────── */
+    #hero {
+      min-height:100vh;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center; padding:80px 20px 60px;
+      background:radial-gradient(ellipse 80% 55% at 50% 25%, rgba(249,115,22,.1) 0%, transparent 68%);
+      position:relative; overflow:hidden;
+    }
+    /* Tiger stripe bg */
+    #hero::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background:repeating-linear-gradient(
+        -65deg,
+        transparent 0px, transparent 60px,
+        rgba(249,115,22,.028) 60px, rgba(249,115,22,.028) 80px
+      );
+    }
+    .hero-icon {
+      width:76px; height:76px; border-radius:17px; margin-bottom:24px;
+      animation:glow 3s ease-in-out infinite;
+    }
+    .hero-icon svg { width:100%; height:100%; display:block; }
+    #hero h1 {
+      font-size:clamp(2.6rem, 8vw, 5.2rem);
+      font-weight:900; letter-spacing:-3px; line-height:1.05; margin-bottom:16px;
+    }
+    #hero h1 em { color:var(--orange); font-style:normal; }
+    #hero p {
+      font-size:clamp(.95rem, 2.2vw, 1.15rem);
+      color:var(--muted); max-width:480px; margin:0 auto 32px;
     }
 
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(13, 13, 15, 0.75);
-      backdrop-filter: blur(12px);
-      z-index: 10;
+    /* ── Download badges ──────────────────────────────────── */
+    .dl-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:48px; }
+    .badge {
+      display:inline-flex; align-items:center; gap:11px;
+      padding:11px 20px; border-radius:12px; min-width:165px;
+      font-weight:700; transition:transform .2s, box-shadow .2s;
     }
+    .badge:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,.5); }
+    .badge-ios { background:#f5f5f5; color:#0b0b0b; }
+    .badge-and { background:var(--surf2); color:var(--text); border:1.5px solid var(--border); }
+    .badge-label { display:flex; flex-direction:column; }
+    .badge-label span:first-child { font-size:.65rem; opacity:.6; font-weight:500; margin-bottom:1px; }
+    .badge-label span:last-child  { font-size:.95rem; letter-spacing:-.2px; }
 
-    .brand {
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      font-size: 1.1rem;
+    /* ── Tile board ───────────────────────────────────────── */
+    .board-wrap { animation:glow 3s ease-in-out infinite; border-radius:14px; }
+    .board {
+      display:grid; grid-template-columns:repeat(5, 50px);
+      gap:6px; padding:14px;
+      background:var(--surf); border:1px solid var(--border); border-radius:14px;
+      box-shadow:0 20px 60px rgba(0,0,0,.6);
     }
-
-    .cta {
-      background: var(--accent);
-      color: #000;
-      padding: 0.6rem 1.1rem;
-      border-radius: 8px;
-      font-weight: 700;
-      transition: transform .15s ease, background .15s ease;
+    .tile {
+      width:50px; height:50px; border-radius:8px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900; font-size:18px;
+      background:var(--surf2); border:2px solid var(--border); color:var(--text);
+      transition:background .4s, opacity .4s;
     }
-
-    .cta:hover {
-      background: var(--accent-dark);
-      transform: translateY(-2px);
+    .tile.center {
+      background:var(--orange); border-color:var(--orange2); color:#fff;
+      box-shadow:0 0 18px rgba(249,115,22,.45);
+      animation:bounce 2s ease-in-out infinite;
     }
+    .tile.dim { opacity:.22; }
+    .hero-note { margin-top:16px; font-size:.7rem; letter-spacing:1.5px; font-weight:700; color:var(--dim); }
 
-    /* Hero — image-based */
-    .hero {
-      padding-top: 6rem; /* accounts for fixed header */
-      background: #000;
-      text-align: center;
+    /* ── Section shell ────────────────────────────────────── */
+    section { padding:88px 20px; }
+    .inner  { max-width:940px; margin:0 auto; }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:.68rem; font-weight:700; letter-spacing:2px; color:var(--orange);
+      margin-bottom:14px;
     }
+    .eyebrow::before { content:''; display:block; width:14px; height:2px; background:var(--orange); border-radius:1px; }
+    h2 { font-size:clamp(1.9rem, 5vw, 3rem); font-weight:900; letter-spacing:-2px; line-height:1.1; margin-bottom:14px; }
+    h2 em { color:var(--orange); font-style:normal; }
+    .section-lead { color:var(--muted); font-size:.9375rem; max-width:440px; margin-bottom:44px; line-height:1.7; }
 
-    .hero img {
-      width: 100%;
-      max-width: 1600px;
-      display: block;
-      margin: 0 auto;
+    /* ── How-to-play ──────────────────────────────────────── */
+    #how { background:var(--bg); border-top:1px solid var(--border); }
+    .steps { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:16px; }
+    .step {
+      background:var(--surf); border:1px solid var(--border); border-radius:14px;
+      padding:26px 22px; display:flex; flex-direction:column; gap:18px;
     }
-
-    /* Sections */
-    section {
-      padding: 6rem 2rem;
-      max-width: 1100px;
-      margin: auto;
+    .step-num {
+      width:34px; height:34px; border-radius:8px;
+      background:rgba(249,115,22,.12); border:1.5px solid rgba(249,115,22,.25);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900; color:var(--orange);
     }
-
-    .section-title {
-      text-align: center;
-      font-size: 2.25rem;
-      font-weight: 800;
-      margin-bottom: 3rem;
+    .step-vis { display:flex; justify-content:center; align-items:center; min-height:64px; }
+    /* mini tiles */
+    .mtiles { display:flex; gap:5px; flex-wrap:wrap; justify-content:center; }
+    .mt {
+      width:38px; height:38px; border-radius:7px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900; font-size:14px; background:var(--surf2);
+      border:1.5px solid var(--border); color:var(--text);
     }
+    .mt.c { background:var(--orange); color:#fff; border-color:var(--orange2); box-shadow:0 0 10px rgba(249,115,22,.4); }
+    /* word preview */
+    .wprev { display:inline-flex; gap:4px; padding:9px 14px; border-radius:9px; background:var(--surf2); border:2px solid var(--orange); }
+    .wt { width:32px; height:32px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; background:var(--surf); border:1.5px solid var(--border); }
+    .wt.c { background:var(--orange); color:#fff; border-color:var(--orange2); }
+    /* streak bars */
+    .sbars { display:flex; gap:5px; align-items:flex-end; }
+    .sbar { width:20px; border-radius:5px; border:1.5px solid var(--border); background:var(--surf2); }
+    .step h3 { font-size:1rem; font-weight:800; margin-bottom:4px; }
+    .step p  { font-size:.875rem; color:var(--muted); line-height:1.65; }
 
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
+    /* ── Features ─────────────────────────────────────────── */
+    #features { background:var(--bg); border-top:1px solid var(--border); }
+    .feat-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:14px; }
+    .feat {
+      background:var(--surf); border:1px solid var(--border); border-radius:13px;
+      padding:24px 20px; transition:transform .2s, border-color .2s;
     }
-
-    .card {
-      background: #1a1a1f;
-      border: 1px solid #2a2a32;
-      border-radius: 14px;
-      padding: 2rem;
+    .feat:hover { transform:translateY(-3px); }
+    .feat-ico {
+      width:38px; height:38px; border-radius:9px;
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:12px;
     }
+    .feat h3 { font-size:.9375rem; font-weight:800; margin-bottom:5px; }
+    .feat p  { font-size:.875rem; color:var(--muted); line-height:1.65; }
 
-    .card h3 {
-      margin-bottom: .5rem;
-      font-size: 1.2rem;
+    /* ── Pricing ──────────────────────────────────────────── */
+    #pricing { background:var(--bg); border-top:1px solid var(--border); }
+    /* Toggle */
+    .tgl-wrap {
+      display:inline-flex; align-items:center; gap:10px;
+      background:var(--surf); border:1px solid var(--border);
+      border-radius:40px; padding:5px 5px 5px 14px; margin-bottom:40px;
     }
-
-    .card p {
-      color: var(--muted);
-      font-size: .95rem;
+    .tgl-lbl { font-size:.875rem; font-weight:600; color:var(--muted); }
+    .tgl-lbl.on { color:var(--text); }
+    .tgl {
+      width:40px; height:21px; border-radius:10px;
+      background:var(--surf2); border:1.5px solid var(--border);
+      position:relative; cursor:pointer;
+      transition:background .25s, border-color .25s;
     }
+    .tgl.on { background:var(--orange); border-color:var(--orange2); }
+    .tgl-knob {
+      position:absolute; top:2px; left:2px;
+      width:13px; height:13px; border-radius:50%; background:#fff;
+      transition:left .25s;
+    }
+    .tgl.on .tgl-knob { left:21px; }
+    .save-tag { font-size:.65rem; font-weight:700; color:var(--green); margin-left:4px; padding-right:10px; }
+    /* Cards */
+    .pc-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:14px; }
+    .pc {
+      background:var(--surf); border:1px solid var(--border);
+      border-radius:16px; padding:28px 22px;
+      display:flex; flex-direction:column; position:relative;
+    }
+    .pc.best {
+      border:2px solid var(--orange);
+      background:linear-gradient(145deg,rgba(249,115,22,.09),rgba(194,65,12,.04));
+      box-shadow:0 0 44px rgba(249,115,22,.11);
+    }
+    .pc-badge {
+      position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+      font-size:.65rem; font-weight:800; letter-spacing:1px; color:#fff;
+      padding:2px 10px; border-radius:20px; white-space:nowrap;
+    }
+    .pc-name   { font-size:1.2rem; font-weight:900; margin-bottom:10px; }
+    .pc-price  { font-size:2.5rem; font-weight:900; letter-spacing:-2px; line-height:1; }
+    .pc-period { font-size:.8rem; color:var(--dim); margin-top:3px; margin-bottom:14px; }
+    .pc-line   { height:1px; background:var(--border); margin-bottom:14px; }
+    .pc-feats  { list-style:none; flex:1; display:flex; flex-direction:column; gap:9px; margin-bottom:22px; }
+    .pc-feats li { display:flex; align-items:center; gap:9px; font-size:.875rem; color:var(--muted); }
+    .ck { font-weight:900; font-size:.9rem; }
+    .pc-cta {
+      display:block; text-align:center; padding:12px;
+      border-radius:10px; font-weight:700; font-size:.9rem; color:#fff;
+      background:var(--surf2); border:1.5px solid var(--border);
+      transition:filter .2s; cursor:pointer;
+    }
+    .pc-cta.primary { background:var(--orange); border-color:var(--orange2); }
+    .pc-cta:hover { filter:brightness(1.12); }
 
-    footer {
-      text-align: center;
-      padding: 3rem 2rem;
-      color: var(--muted);
-      border-top: 1px solid #2a2a32;
+    /* ── Download CTA ─────────────────────────────────────── */
+    #download {
+      border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      background:radial-gradient(ellipse 70% 80% at 50% 50%, rgba(249,115,22,.08) 0%, transparent 65%), var(--surf);
+      text-align:center;
+    }
+    .cta-icon { width:84px; height:84px; border-radius:18px; margin:0 auto 22px; animation:glow 3s ease-in-out infinite; }
+    .cta-icon svg { width:100%; height:100%; display:block; }
+    #download h2 { margin-bottom:12px; }
+    #download .lead { font-size:1rem; color:var(--muted); max-width:440px; margin:0 auto 32px; }
+
+    /* ── Footer ───────────────────────────────────────────── */
+    footer { padding:32px 20px; background:var(--bg); border-top:1px solid var(--border); }
+    .foot { max-width:940px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; }
+    .foot-brand { display:flex; align-items:center; gap:7px; font-size:.8125rem; font-weight:800; color:var(--dim); }
+    .foot-links { display:flex; gap:22px; flex-wrap:wrap; }
+    .foot-links a { font-size:.8125rem; color:var(--dim); transition:color .2s; }
+    .foot-links a:hover { color:var(--text); }
+    .foot-copy { font-size:.8125rem; color:var(--dim); }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width:600px) {
+      .dl-row { flex-direction:column; align-items:center; }
+      .badge  { width:210px; justify-content:center; }
+      .foot   { flex-direction:column; text-align:center; }
     }
   </style>
 </head>
-
 <body>
 
-<header>
-  <div class="brand">Word Tiger</div>
-  #Download Free</a>
-</header>
+<!-- ■ NAV ──────────────────────────────────────────────────── -->
+<nav id="nav">
+  <div class="nav-brand">
+    <svg class="logo-sq" width="28" height="28" viewBox="0 0 180 180" aria-hidden="true">
+      <rect width="180" height="180" rx="36" fill="#f97316"/>
+      <polygon points="30,0 68,0 8,180 -30,180"   fill="rgba(0,0,0,.13)"/>
+      <polygon points="78,0 116,0 56,180 18,180"   fill="rgba(0,0,0,.08)"/>
+      <polygon points="126,0 164,0 104,180 66,180"  fill="rgba(0,0,0,.13)"/>
+      <text x="90" y="119" text-anchor="middle"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-weight="900" font-size="76" fill="#fff" letter-spacing="-4">WT</text>
+    </svg>
+    Word <em>Tiger</em>
+  </div>
+  <a class="nav-btn" href="https://apps.apple.com/app/word-tiger/id000000000" target="_blank" rel="noopener">Download Free</a>
+</nav>
 
-<!-- HERO IMAGE -->
-<section class="hero">
-  word-tiger-hero.png
+<!-- ■ HERO ─────────────────────────────────────────────────── -->
+<section id="hero">
+
+  <div class="hero-icon a0" aria-hidden="true">
+    <svg viewBox="0 0 180 180">
+      <rect width="180" height="180" rx="36" fill="#f97316"/>
+      <polygon points="30,0 68,0 8,180 -30,180"   fill="rgba(0,0,0,.13)"/>
+      <polygon points="78,0 116,0 56,180 18,180"   fill="rgba(0,0,0,.08)"/>
+      <polygon points="126,0 164,0 104,180 66,180"  fill="rgba(0,0,0,.13)"/>
+      <text x="90" y="119" text-anchor="middle"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-weight="900" font-size="76" fill="#fff" letter-spacing="-4">WT</text>
+    </svg>
+  </div>
+
+  <h1 class="a1">Think Sharper.<br><em>Play Smarter.</em></h1>
+  <p class="a2">Word Tiger is a word puzzle game where every move matters. Build valid words, navigate constraints, and solve the grid through careful planning and vocabulary.</p>
+
+  <!-- App Store + Google Play badges -->
+  <div class="dl-row a3">
+    <a class="badge badge-ios"
+       href="https://apps.apple.com/app/word-tiger/id000000000"
+       target="_blank" rel="noopener"
+       aria-label="Download on the App Store">
+      <!-- Apple logo -->
+      <svg width="20" height="25" viewBox="0 0 814 1000" fill="currentColor" aria-hidden="true">
+        <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105.9-57-155.5-127.4C46.7 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 71 0 130.1 46.4 174.5 46.4 42.6 0 109.5-49.8 189.3-49.8zm-130.1-80.4c-31.1-36.9-55.5-88.6-55.5-140.3 0-7.1.6-14.3 1.9-20.5 52.8 2 116.7 35.2 155.5 79.3 31.1 34.9 59.6 87.8 59.6 141.4 0 8.4-.6 16.1-1.9 23.2-5.8.6-12.9 1.3-20 1.3-49.9 0-112.3-31.1-139.6-84.4z"/>
+      </svg>
+      <div class="badge-label">
+        <span>Download on the</span>
+        <span>App Store</span>
+      </div>
+    </a>
+
+    <a class="badge badge-and"
+       href="https://play.google.com/store/apps/details?id=com.wordtiger.app"
+       target="_blank" rel="noopener"
+       aria-label="Get it on Google Play">
+      <!-- Google Play triangle logo -->
+      <svg width="20" height="22" viewBox="0 0 512 512" aria-hidden="true">
+        <path d="M48,59.49v393a4.33,4.33,0,0,0,7.37,3.07L274,256,55.37,56.42A4.33,4.33,0,0,0,48,59.49Z" fill="#32BBFF"/>
+        <path d="M296,277.94l-47.34,47.34L79.41,471.4a4.33,4.33,0,0,1-7.37-3.07v-4.09L296,277.94Z" fill="#32BBFF"/>
+        <path d="M512,256c0,15.72-8.58,29.44-21.25,36.93l-67.3,38.46L378,277.94l45.7-45.7,57.75-57.85C500.94,181.56,512,197.05,512,256Z" fill="#FFD400"/>
+        <path d="M422.7,217.9l-182-182-71.3 71.3L267,55.36,287.45,34.9a4.33,4.33,0,0,1,7.37,3.07Z" fill="#FF3333"/>
+        <path d="M296,234.06,72,17.66v-4.09A4.33,4.33,0,0,1,79.41,10.6L248.66,134.72Z" fill="#2C9FD9"/>
+        <path d="M422.7,294.1,248.66,377.28,79.41,501.4a4.33,4.33,0,0,1-7.41-3.06v-4.09L267,234.06Z" fill="#FF3333"/>
+        <path d="M248.66,377.28l47.34,47.34,125.7,70.4a4.33,4.33,0,0,0,7.41-3.06Z" fill="#FFD400"/>
+      </svg>
+      <div class="badge-label">
+        <span>Get it on</span>
+        <span>Google Play</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Animated letter grid -->
+  <div class="board-wrap a3">
+    <div class="board" id="board" role="img" aria-label="Word Tiger game board preview"></div>
+  </div>
+  <p class="hero-note">FREE TO PLAY · NO ADS · DAILY CHALLENGES</p>
 </section>
 
-<section>
-  <h2 class="section-title">Why Word Tiger?</h2>
+<!-- ■ HOW TO PLAY ───────────────────────────────────────────── -->
+<section id="how">
+  <div class="inner">
+    <p class="eyebrow">HOW TO PLAY</p>
+    <h2>Simple rules. <em>Endless depth.</em></h2>
 
-  <div class="features">
-    <div class="card">
-      <h3>Grid‑Based Strategy</h3>
-      <p>Every word changes the board. You’re solving a system, not guessing a word.</p>
-    </div>
-
-    <div class="card">
-      <h3>No Timers</h3>
-      <p>Take your time. Word Tiger rewards careful planning, not speed.</p>
-    </div>
-
-    <div class="card">
-      <h3>Clean & Focused</h3>
-      <p>No ads, no noise, and no accounts required.</p>
-    </div>
-
-    <div class="card">
-      <h3>Built for Mobile</h3>
-      <p>Designed for touch interactions and short daily sessions.</p>
+    <div class="steps">
+      <!-- Step 1 -->
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-vis">
+          <div class="mtiles">
+            <div class="mt">T</div><div class="mt">I</div><div class="mt">G</div>
+            <div class="mt">E</div><div class="mt c">R</div><div class="mt">W</div>
+            <div class="mt">O</div><div class="mt">D</div><div class="mt">S</div>
+          </div>
+        </div>
+        <h3>Find the center tile</h3>
+        <p>Every word you build must use the glowing orange center letter — it's the heart of every puzzle.</p>
+      </div>
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-vis">
+          <div class="wprev">
+            <div class="wt">W</div><div class="wt">O</div>
+            <div class="wt c">R</div>
+            <div class="wt">D</div><div class="wt">S</div>
+          </div>
+        </div>
+        <h3>Spell valid words</h3>
+        <p>Combine any tiles with the center letter to form real English words of 4 letters or more.</p>
+      </div>
+      <!-- Step 3 -->
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-vis">
+          <div class="sbars">
+            <div class="sbar" style="height:40px;background:rgba(251,191,36,.6);border-color:#fbbf24"></div>
+            <div class="sbar" style="height:34px;background:rgba(251,191,36,.5);border-color:#fbbf24"></div>
+            <div class="sbar" style="height:27px;background:rgba(251,191,36,.4);border-color:#fbbf24"></div>
+            <div class="sbar" style="height:20px;background:rgba(251,191,36,.3);border-color:#fbbf24"></div>
+            <div class="sbar" style="height:14px"></div>
+            <div class="sbar" style="height:8px"></div>
+          </div>
+        </div>
+        <h3>Build your streak</h3>
+        <p>Play every day to grow your streak. Tiger Pass holders get a Streak Shield to save a missed day once a month.</p>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ■ FEATURES ──────────────────────────────────────────────── -->
+<section id="features">
+  <div class="inner">
+    <p class="eyebrow">FEATURES</p>
+    <h2>Everything you need. <em>Nothing you don't.</em></h2>
+    <div class="feat-grid" id="feat-grid"></div>
+  </div>
+</section>
+
+<!-- ■ PRICING ───────────────────────────────────────────────── -->
+<section id="pricing">
+  <div class="inner">
+    <p class="eyebrow">PRICING</p>
+    <h2>Start free. <em>Upgrade when you're hooked.</em></h2>
+    <p class="section-lead">The core game is always free. Unlock everything with a one-time purchase or subscription.</p>
+
+    <div class="tgl-wrap">
+      <span class="tgl-lbl on" id="lbl-mo">Monthly</span>
+      <div class="tgl" id="tgl" role="switch" aria-checked="false" tabindex="0">
+        <div class="tgl-knob"></div>
+      </div>
+      <span class="tgl-lbl" id="lbl-yr">Annual <span class="save-tag" id="save-tag" style="display:none">SAVE 44%</span></span>
+    </div>
+
+    <div class="pc-grid" id="pc-grid"></div>
+  </div>
+</section>
+
+<!-- ■ DOWNLOAD CTA ──────────────────────────────────────────── -->
+<section id="download">
+  <div class="inner">
+    <div class="cta-icon" aria-hidden="true">
+      <svg viewBox="0 0 180 180">
+        <rect width="180" height="180" rx="36" fill="#f97316"/>
+        <polygon points="30,0 68,0 8,180 -30,180"   fill="rgba(0,0,0,.13)"/>
+        <polygon points="78,0 116,0 56,180 18,180"   fill="rgba(0,0,0,.08)"/>
+        <polygon points="126,0 164,0 104,180 66,180"  fill="rgba(0,0,0,.13)"/>
+        <text x="90" y="119" text-anchor="middle"
+          font-family="'Arial Black',Arial,sans-serif"
+          font-weight="900" font-size="76" fill="#fff" letter-spacing="-4">WT</text>
+      </svg>
+    </div>
+    <h2>Ready to unleash <em>your inner tiger?</em></h2>
+    <p class="lead">Download Word Tiger free today. No account needed, no ads, just pure word-game satisfaction.</p>
+    <div class="dl-row">
+      <a class="badge badge-ios"
+         href="https://apps.apple.com/app/word-tiger/id000000000"
+         target="_blank" rel="noopener"
+         aria-label="Download on the App Store">
+        <svg width="20" height="25" viewBox="0 0 814 1000" fill="currentColor" aria-hidden="true">
+          <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105.9-57-155.5-127.4C46.7 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 71 0 130.1 46.4 174.5 46.4 42.6 0 109.5-49.8 189.3-49.8zm-130.1-80.4c-31.1-36.9-55.5-88.6-55.5-140.3 0-7.1.6-14.3 1.9-20.5 52.8 2 116.7 35.2 155.5 79.3 31.1 34.9 59.6 87.8 59.6 141.4 0 8.4-.6 16.1-1.9 23.2-5.8.6-12.9 1.3-20 1.3-49.9 0-112.3-31.1-139.6-84.4z"/>
+        </svg>
+        <div class="badge-label"><span>Download on the</span><span>App Store</span></div>
+      </a>
+      <a class="badge badge-and"
+         href="https://play.google.com/store/apps/details?id=com.wordtiger.app"
+         target="_blank" rel="noopener"
+         aria-label="Get it on Google Play">
+        <svg width="20" height="22" viewBox="0 0 512 512" aria-hidden="true">
+          <path d="M48,59.49v393a4.33,4.33,0,0,0,7.37,3.07L274,256,55.37,56.42A4.33,4.33,0,0,0,48,59.49Z" fill="#32BBFF"/>
+          <path d="M296,277.94l-47.34,47.34L79.41,471.4a4.33,4.33,0,0,1-7.37-3.07v-4.09L296,277.94Z" fill="#32BBFF"/>
+          <path d="M512,256c0,15.72-8.58,29.44-21.25,36.93l-67.3,38.46L378,277.94l45.7-45.7,57.75-57.85C500.94,181.56,512,197.05,512,256Z" fill="#FFD400"/>
+          <path d="M422.7,217.9l-182-182-71.3,71.3L267,55.36,287.45,34.9a4.33,4.33,0,0,1,7.37,3.07Z" fill="#FF3333"/>
+          <path d="M296,234.06,72,17.66v-4.09A4.33,4.33,0,0,1,79.41,10.6L248.66,134.72Z" fill="#2C9FD9"/>
+          <path d="M422.7,294.1,248.66,377.28,79.41,501.4a4.33,4.33,0,0,1-7.41-3.06v-4.09L267,234.06Z" fill="#FF3333"/>
+          <path d="M248.66,377.28l47.34,47.34,125.7,70.4a4.33,4.33,0,0,0,7.41-3.06Z" fill="#FFD400"/>
+        </svg>
+        <div class="badge-label"><span>Get it on</span><span>Google Play</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ■ FOOTER ────────────────────────────────────────────────── -->
 <footer>
-  © <span id="year"></span> Word Tiger
+  <div class="foot">
+    <div class="foot-brand">
+      <svg class="logo-sq" width="18" height="18" viewBox="0 0 180 180" aria-hidden="true">
+        <rect width="180" height="180" rx="36" fill="#f97316"/>
+        <text x="90" y="119" text-anchor="middle" font-family="'Arial Black',Arial,sans-serif" font-weight="900" font-size="76" fill="#fff" letter-spacing="-4">WT</text>
+      </svg>
+      Word Tiger
+    </div>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="mailto:support@wordtiger.co">Support</a>
+    </nav>
+    <p class="foot-copy">© <span id="yr"></span> Word Tiger. All rights reserved.</p>
+  </div>
 </footer>
 
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+// ── Year ──────────────────────────────────────────────────────
+document.getElementById('yr').textContent = new Date().getFullYear();
 
+// ── Nav scroll ────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 8);
+}, { passive: true });
+
+// ── Animated board ────────────────────────────────────────────
+const BOARDS = [
+  { w: ['T','I','G','E','R','W','O','R','D','S'], c: 4 },
+  { w: ['S','T','R','E','A','K','P','O','I','N'], c: 3 },
+  { w: ['W','O','R','D','S','M','I','T','H','E'], c: 2 },
+  { w: ['P','L','A','N','E','T','W','O','R','D'], c: 4 },
+];
+let bi = 0, dimSet = new Set();
+
+function draw() {
+  const { w, c } = BOARDS[bi];
+  const el = document.getElementById('board');
+  el.innerHTML = '';
+  w.forEach((ch, i) => {
+    const t = document.createElement('div');
+    t.className = 'tile' + (i === c ? ' center' : '') + (dimSet.has(i) ? ' dim' : '');
+    t.textContent = ch;
+    el.appendChild(t);
+  });
+}
+
+function cycle() {
+  bi = (bi + 1) % BOARDS.length;
+  dimSet = new Set();
+  draw();
+  const { w, c } = BOARDS[bi];
+  const pool = [...w.keys()].filter(i => i !== c).sort(() => Math.random() - .5).slice(0, 3);
+  pool.forEach((idx, j) => setTimeout(() => { dimSet.add(idx); draw(); }, 600 + j * 360));
+}
+
+draw();
+setTimeout(() => { [1, 3, 7].forEach((i, j) => setTimeout(() => { dimSet.add(i); draw(); }, j * 360)); }, 1000);
+setInterval(cycle, 3400);
+
+// ── Features ──────────────────────────────────────────────────
+const FEATS = [
+  {
+    color: '#fbbf24',
+    icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>',
+    title: 'Word of the Day',
+    desc: 'A new curated puzzle every 24 hours. Compete for the top spot on the daily leaderboard.',
+  },
+  {
+    color: '#f97316',
+    icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 17c1 0 2-.7 2.5-1.5L15 13c.5-1 .5-2.5-.5-4s-1-3.5-.5-5C9.5 5.5 7.5 9 9 12c-1.5-.5-2.5-2-2.5-4C4 10 3.5 13.5 5 16a6 6 0 0013 0c0-4-4.5-6-4.5-8-2 2-2 4.5-1 5.5"/></svg>',
+    title: 'Streaks & Shields',
+    desc: 'Keep your daily streak alive. Tiger Pass players get a Streak Shield — one save per month.',
+  },
+  {
+    color: '#60a5fa',
+    icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>',
+    title: 'Online Versus',
+    desc: 'Challenge a friend head-to-head. Create a private room, share the code, and see who rules.',
+  },
+  {
+    color: '#4ade80',
+    icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+    title: 'WotD Archive',
+    desc: 'Tiger Pass unlocks the full archive of past Word of the Day puzzles — hundreds of challenges.',
+  },
+  {
+    color: '#a78bfa',
+    icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    title: 'Free Forever',
+    desc: 'One practice game per day at no cost. No ads, no paywalls, no annoying push notifications.',
+  },
+  {
+    color: '#fbbf24',
+    icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+    title: 'Blazing Fast',
+    desc: 'Built native for iOS and Android. Every tap and animation is instant and satisfying.',
+  },
+];
+
+const fg = document.getElementById('feat-grid');
+FEATS.forEach(f => {
+  const el = document.createElement('div');
+  el.className = 'feat';
+  el.addEventListener('mouseenter', () => el.style.borderColor = f.color);
+  el.addEventListener('mouseleave', () => el.style.borderColor = '');
+  el.innerHTML = `
+    <div class="feat-ico" style="background:${f.color}1a;border:1.5px solid ${f.color}33;color:${f.color}">${f.icon}</div>
+    <h3>${f.title}</h3>
+    <p>${f.desc}</p>`;
+  fg.appendChild(el);
+});
+
+// ── Pricing ───────────────────────────────────────────────────
+let annual = false;
+
+const TIERS = [
+  {
+    name: 'Free', badge: null, best: false, nameColor: '#f5f5f5',
+    mo: '$0', yr: '$0', period: 'forever',
+    feats: ['1 practice game per day', 'Standard word grid', 'Lifetime high score', 'No ads, ever'],
+    cta: 'Start Playing',
+    href: 'https://apps.apple.com/app/word-tiger/id000000000',
+    checkColor: '#4ade80',
+  },
+  {
+    name: 'Tiger Pass', badge: 'BEST VALUE', best: true, nameColor: '#f97316',
+    mo: '$1.49', yr: '$0.83',
+    period_mo: '/month', period_yr: '/mo, billed $9.99/yr',
+    feats: ['Everything in Free', 'Unlimited daily practice', 'Word of the Day', 'WotD Archive', 'Streak Shield (1/month)', 'Online Versus', '7-day free trial'],
+    cta: 'Start Free Trial',
+    href: 'https://apps.apple.com/app/word-tiger/id000000000',
+    checkColor: '#f97316',
+  },
+  {
+    name: 'Pro', badge: 'ONE-TIME', best: false, nameColor: '#60a5fa',
+    mo: '$2.99', yr: '$2.99', period: 'one-time purchase',
+    feats: ['Everything in Free', 'Unlimited daily practice', 'Word of the Day', 'Online Versus'],
+    cta: 'Get Pro',
+    href: 'https://apps.apple.com/app/word-tiger/id000000000',
+    checkColor: '#4ade80',
+  },
+];
+
+function renderPricing() {
+  const grid = document.getElementById('pc-grid');
+  grid.innerHTML = '';
+  TIERS.forEach(t => {
+    const price  = annual ? t.yr : t.mo;
+    const period = t.period || (annual ? t.period_yr : t.period_mo);
+    const card = document.createElement('div');
+    card.className = 'pc' + (t.best ? ' best' : '');
+    card.innerHTML = `
+      ${t.badge ? `<div class="pc-badge" style="background:${t.best ? '#f97316' : '#1e1e1e'};border:1.5px solid ${t.best ? '#c2410c' : '#333'}">${t.badge}</div>` : ''}
+      <div class="pc-name" style="color:${t.nameColor}">${t.name}</div>
+      <div class="pc-price">${price}</div>
+      <div class="pc-period">${period}</div>
+      <div class="pc-line"></div>
+      <ul class="pc-feats">
+        ${t.feats.map(f => `<li><span class="ck" style="color:${t.checkColor}">✓</span>${f}</li>`).join('')}
+      </ul>
+      <a class="pc-cta${t.best ? ' primary' : ''}" href="${t.href}" target="_blank" rel="noopener">${t.cta}</a>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+renderPricing();
+
+function toggleAnnual() {
+  annual = !annual;
+  const tgl = document.getElementById('tgl');
+  tgl.classList.toggle('on', annual);
+  tgl.setAttribute('aria-checked', annual);
+  document.getElementById('lbl-mo').classList.toggle('on', !annual);
+  document.getElementById('lbl-yr').classList.toggle('on', annual);
+  document.getElementById('save-tag').style.display = annual ? 'inline' : 'none';
+  renderPricing();
+}
+
+document.getElementById('tgl').addEventListener('click', toggleAnnual);
+document.getElementById('tgl').addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleAnnual(); }
+});
+</script>
 </body>
 </html>
