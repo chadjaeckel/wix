@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Word Tiger Unscramble the 9 letter word, find all the others</title>
-  <meta name="description" content="Find words, build streaks, and challenge friends. Word Tiger is the fast-paced word game where every letter connects. Free to play on iOS and Android." />
+  <title>Word Tigers — The Word Game Where Every Letter Connects</title>
+  <meta name="description" content="Find words, build streaks, and challenge friends. Word Tigers is the fast-paced word game where every letter connects. Free to play on iOS and Android." />
   <meta name="theme-color" content="#f97316" />
-  <meta property="og:title" content="Word Tiger" />
+  <meta property="og:title" content="Word Tigers" />
   <meta property="og:description" content="The word game where every letter connects. Free to play on iOS and Android." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,13 +48,13 @@
     .a3 { animation: fadeUp .6s .3s ease both; }
 
     /* ── Nav ──────────────────────────────────────────────── */
-    nav {
+    #nav {
       position: fixed; top:0; left:0; right:0; z-index:100;
       display:flex; align-items:center; justify-content:space-between;
       height:60px; padding:0 20px;
       transition: background .3s, border-bottom .3s;
     }
-    nav.scrolled { background:rgba(11,11,11,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+    #nav.scrolled { background:rgba(11,11,11,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
     .nav-brand { display:flex; align-items:center; gap:9px; font-weight:800; font-size:1rem; }
     .nav-brand em { color:var(--orange); font-style:normal; }
     .nav-btn {
@@ -75,7 +75,6 @@
       background:radial-gradient(ellipse 80% 55% at 50% 25%, rgba(249,115,22,.1) 0%, transparent 68%);
       position:relative; overflow:hidden;
     }
-    /* Tiger stripe bg */
     #hero::before {
       content:''; position:absolute; inset:0; pointer-events:none;
       background:repeating-linear-gradient(
@@ -116,7 +115,7 @@
     /* ── Tile board ───────────────────────────────────────── */
     .board-wrap { animation:glow 3s ease-in-out infinite; border-radius:14px; }
     .board {
-      display:grid; grid-template-columns:repeat(5, 50px);
+      display:grid; grid-template-columns:repeat(3, 50px);
       gap:6px; padding:14px;
       background:var(--surf); border:1px solid var(--border); border-radius:14px;
       box-shadow:0 20px 60px rgba(0,0,0,.6);
@@ -163,8 +162,7 @@
       font-weight:900; color:var(--orange);
     }
     .step-vis { display:flex; justify-content:center; align-items:center; min-height:64px; }
-    /* mini tiles */
-    .mtiles { display:flex; gap:5px; flex-wrap:wrap; justify-content:center; }
+    .mtiles { display:grid; grid-template-columns:repeat(3, 38px); gap:5px; justify-content:center; }
     .mt {
       width:38px; height:38px; border-radius:7px;
       display:flex; align-items:center; justify-content:center;
@@ -172,11 +170,9 @@
       border:1.5px solid var(--border); color:var(--text);
     }
     .mt.c { background:var(--orange); color:#fff; border-color:var(--orange2); box-shadow:0 0 10px rgba(249,115,22,.4); }
-    /* word preview */
     .wprev { display:inline-flex; gap:4px; padding:9px 14px; border-radius:9px; background:var(--surf2); border:2px solid var(--orange); }
     .wt { width:32px; height:32px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; background:var(--surf); border:1.5px solid var(--border); }
     .wt.c { background:var(--orange); color:#fff; border-color:var(--orange2); }
-    /* streak bars */
     .sbars { display:flex; gap:5px; align-items:flex-end; }
     .sbar { width:20px; border-radius:5px; border:1.5px solid var(--border); background:var(--surf2); }
     .step h3 { font-size:1rem; font-weight:800; margin-bottom:4px; }
@@ -200,7 +196,6 @@
 
     /* ── Pricing ──────────────────────────────────────────── */
     #pricing { background:var(--bg); border-top:1px solid var(--border); }
-    /* Toggle */
     .tgl-wrap {
       display:inline-flex; align-items:center; gap:10px;
       background:var(--surf); border:1px solid var(--border);
@@ -222,7 +217,6 @@
     }
     .tgl.on .tgl-knob { left:21px; }
     .save-tag { font-size:.65rem; font-weight:700; color:var(--green); margin-left:4px; padding-right:10px; }
-    /* Cards */
     .pc-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:14px; }
     .pc {
       background:var(--surf); border:1px solid var(--border);
@@ -297,9 +291,9 @@
         font-family="'Arial Black',Arial,sans-serif"
         font-weight="900" font-size="76" fill="#fff" letter-spacing="-4">WT</text>
     </svg>
-    Word <em>Tiger</em>
+    Word <em>Tigers</em>
   </div>
-  <a class="nav-btn" href="https://apps.apple.com/app/word-tiger/id000000000" target="_blank" rel="noopener">Download Free</a>
+  <a class="nav-btn" href="https://apps.apple.com/app/word-tigers/id6744100885" target="_blank" rel="noopener">Download Free</a>
 </nav>
 
 <!-- ■ HERO ─────────────────────────────────────────────────── -->
@@ -318,15 +312,13 @@
   </div>
 
   <h1 class="a1">Think Sharper.<br><em>Play Smarter.</em></h1>
-  <p class="a2">Word Tiger is a word puzzle game where every move matters. Build valid words, navigate constraints, and solve the grid through careful planning and vocabulary.</p>
+  <p class="a2">Word Tigers is a word puzzle game where every move matters. Build valid words, navigate constraints, and solve the grid through careful planning and vocabulary.</p>
 
-  <!-- App Store + Google Play badges -->
   <div class="dl-row a3">
     <a class="badge badge-ios"
-       href="https://apps.apple.com/app/word-tiger/id000000000"
+       href="https://apps.apple.com/app/word-tigers/id6744100885"
        target="_blank" rel="noopener"
        aria-label="Download on the App Store">
-      <!-- Apple logo -->
       <svg width="20" height="25" viewBox="0 0 814 1000" fill="currentColor" aria-hidden="true">
         <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105.9-57-155.5-127.4C46.7 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 71 0 130.1 46.4 174.5 46.4 42.6 0 109.5-49.8 189.3-49.8zm-130.1-80.4c-31.1-36.9-55.5-88.6-55.5-140.3 0-7.1.6-14.3 1.9-20.5 52.8 2 116.7 35.2 155.5 79.3 31.1 34.9 59.6 87.8 59.6 141.4 0 8.4-.6 16.1-1.9 23.2-5.8.6-12.9 1.3-20 1.3-49.9 0-112.3-31.1-139.6-84.4z"/>
       </svg>
@@ -340,12 +332,11 @@
        href="https://play.google.com/store/apps/details?id=com.wordtiger.app"
        target="_blank" rel="noopener"
        aria-label="Get it on Google Play">
-      <!-- Google Play triangle logo -->
       <svg width="20" height="22" viewBox="0 0 512 512" aria-hidden="true">
         <path d="M48,59.49v393a4.33,4.33,0,0,0,7.37,3.07L274,256,55.37,56.42A4.33,4.33,0,0,0,48,59.49Z" fill="#32BBFF"/>
         <path d="M296,277.94l-47.34,47.34L79.41,471.4a4.33,4.33,0,0,1-7.37-3.07v-4.09L296,277.94Z" fill="#32BBFF"/>
         <path d="M512,256c0,15.72-8.58,29.44-21.25,36.93l-67.3,38.46L378,277.94l45.7-45.7,57.75-57.85C500.94,181.56,512,197.05,512,256Z" fill="#FFD400"/>
-        <path d="M422.7,217.9l-182-182-71.3 71.3L267,55.36,287.45,34.9a4.33,4.33,0,0,1,7.37,3.07Z" fill="#FF3333"/>
+        <path d="M422.7,217.9l-182-182-71.3,71.3L267,55.36,287.45,34.9a4.33,4.33,0,0,1,7.37,3.07Z" fill="#FF3333"/>
         <path d="M296,234.06,72,17.66v-4.09A4.33,4.33,0,0,1,79.41,10.6L248.66,134.72Z" fill="#2C9FD9"/>
         <path d="M422.7,294.1,248.66,377.28,79.41,501.4a4.33,4.33,0,0,1-7.41-3.06v-4.09L267,234.06Z" fill="#FF3333"/>
         <path d="M248.66,377.28l47.34,47.34,125.7,70.4a4.33,4.33,0,0,0,7.41-3.06Z" fill="#FFD400"/>
@@ -359,7 +350,7 @@
 
   <!-- Animated letter grid -->
   <div class="board-wrap a3">
-    <div class="board" id="board" role="img" aria-label="Word Tiger game board preview"></div>
+    <div class="board" id="board" role="img" aria-label="Word Tigers game board preview"></div>
   </div>
   <p class="hero-note">FREE TO PLAY · NO ADS · DAILY CHALLENGES</p>
 </section>
@@ -431,14 +422,14 @@
   <div class="inner">
     <p class="eyebrow">PRICING</p>
     <h2>Start free. <em>Upgrade when you're hooked.</em></h2>
-    <p class="section-lead">The core game is always free. Unlock everything with a one-time purchase or subscription.</p>
+    <p class="section-lead">The core game is always free. Unlock everything with a one-time purchase or a subscription.</p>
 
     <div class="tgl-wrap">
       <span class="tgl-lbl on" id="lbl-mo">Monthly</span>
       <div class="tgl" id="tgl" role="switch" aria-checked="false" tabindex="0">
         <div class="tgl-knob"></div>
       </div>
-      <span class="tgl-lbl" id="lbl-yr">Annual <span class="save-tag" id="save-tag" style="display:none">SAVE 44%</span></span>
+      <span class="tgl-lbl" id="lbl-yr">Annual <span class="save-tag" id="save-tag" style="display:none">SAVE 37%</span></span>
     </div>
 
     <div class="pc-grid" id="pc-grid"></div>
@@ -460,10 +451,10 @@
       </svg>
     </div>
     <h2>Ready to unleash <em>your inner tiger?</em></h2>
-    <p class="lead">Download Word Tiger free today. No account needed, no ads, just pure word-game satisfaction.</p>
+    <p class="lead">Download Word Tigers free today. No account needed, no ads, just pure word-game satisfaction.</p>
     <div class="dl-row">
       <a class="badge badge-ios"
-         href="https://apps.apple.com/app/word-tiger/id000000000"
+         href="https://apps.apple.com/app/word-tigers/id6744100885"
          target="_blank" rel="noopener"
          aria-label="Download on the App Store">
         <svg width="20" height="25" viewBox="0 0 814 1000" fill="currentColor" aria-hidden="true">
@@ -498,14 +489,14 @@
         <rect width="180" height="180" rx="36" fill="#f97316"/>
         <text x="90" y="119" text-anchor="middle" font-family="'Arial Black',Arial,sans-serif" font-weight="900" font-size="76" fill="#fff" letter-spacing="-4">WT</text>
       </svg>
-      Word Tiger
+      Word Tigers
     </div>
     <nav class="foot-links" aria-label="Footer">
       <a href="/privacy.html">Privacy Policy</a>
       <a href="/terms.html">Terms of Service</a>
       <a href="mailto:support@wordtiger.co">Support</a>
     </nav>
-    <p class="foot-copy">© <span id="yr"></span> Word Tiger. All rights reserved.</p>
+    <p class="foot-copy">© <span id="yr"></span> Word Tigers. All rights reserved.</p>
   </div>
 </footer>
 
@@ -518,12 +509,12 @@ window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 8);
 }, { passive: true });
 
-// ── Animated board ────────────────────────────────────────────
+// ── Animated board (3×3 grid) ─────────────────────────────────
 const BOARDS = [
-  { w: ['T','I','G','E','R','W','O','R','D','S'], c: 4 },
-  { w: ['S','T','R','E','A','K','P','O','I','N'], c: 3 },
-  { w: ['W','O','R','D','S','M','I','T','H','E'], c: 2 },
-  { w: ['P','L','A','N','E','T','W','O','R','D'], c: 4 },
+  { w: ['T','I','G','E','R','W','O','D','S'], c: 4 },
+  { w: ['S','T','R','E','A','K','P','O','I'], c: 3 },
+  { w: ['W','O','R','D','S','M','I','T','H'], c: 2 },
+  { w: ['P','L','A','N','E','T','W','O','R'], c: 4 },
 ];
 let bi = 0, dimSet = new Set();
 
@@ -557,13 +548,13 @@ const FEATS = [
   {
     color: '#fbbf24',
     icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>',
-    title: 'Word of the Day',
-    desc: 'A new curated puzzle every 24 hours. Compete for the top spot on the daily leaderboard.',
+    title: 'Puzzle of the Day',
+    desc: 'A new curated puzzle every 24 hours. Compete for the top spot on the daily global leaderboard.',
   },
   {
     color: '#f97316',
-    icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 17c1 0 2-.7 2.5-1.5L15 13c.5-1 .5-2.5-.5-4s-1-3.5-.5-5C9.5 5.5 7.5 9 9 12c-1.5-.5-2.5-2-2.5-4C4 10 3.5 13.5 5 16a6 6 0 0013 0c0-4-4.5-6-4.5-8-2 2-2 4.5-1 5.5"/></svg>',
-    title: 'Streaks & Shields',
+    icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    title: 'Streaks &amp; Shields',
     desc: 'Keep your daily streak alive. Tiger Pass players get a Streak Shield — one save per month.',
   },
   {
@@ -576,19 +567,19 @@ const FEATS = [
     color: '#4ade80',
     icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
     title: 'WotD Archive',
-    desc: 'Tiger Pass unlocks the full archive of past Word of the Day puzzles — hundreds of challenges.',
+    desc: 'Tiger Pass unlocks the full archive of past Puzzle of the Day challenges — hundreds of puzzles.',
   },
   {
     color: '#a78bfa',
-    icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
-    title: 'Free Forever',
-    desc: 'One practice game per day at no cost. No ads, no paywalls, no annoying push notifications.',
+    icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+    title: 'Custom Dictionary',
+    desc: 'Pro Unlimited users can add their own words to the dictionary for a personalized challenge.',
   },
   {
     color: '#fbbf24',
     icon: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
-    title: 'Blazing Fast',
-    desc: 'Built native for iOS and Android. Every tap and animation is instant and satisfying.',
+    title: 'No Ads, Ever',
+    desc: 'Built native for iOS and Android. Every tap is instant. No ads, no paywalls on the core game.',
   },
 ];
 
@@ -612,26 +603,43 @@ const TIERS = [
   {
     name: 'Free', badge: null, best: false, nameColor: '#f5f5f5',
     mo: '$0', yr: '$0', period: 'forever',
-    feats: ['1 practice game per day', 'Standard word grid', 'Lifetime high score', 'No ads, ever'],
+    feats: [
+      '1 practice game per day',
+      'Puzzle of the Day (free)',
+      'Daily global leaderboard',
+      'No ads, ever',
+    ],
     cta: 'Start Playing',
-    href: 'https://apps.apple.com/app/word-tiger/id000000000',
+    href: 'https://apps.apple.com/app/word-tigers/id6744100885',
     checkColor: '#4ade80',
   },
   {
     name: 'Tiger Pass', badge: 'BEST VALUE', best: true, nameColor: '#f97316',
-    mo: '$1.49', yr: '$0.83',
-    period_mo: '/month', period_yr: '/mo, billed $9.99/yr',
-    feats: ['Everything in Free', 'Unlimited daily practice', 'Word of the Day', 'WotD Archive', 'Streak Shield (1/month)', 'Online Versus', '7-day free trial'],
+    mo: '$1.99', yr: '$1.25',
+    period_mo: '/month', period_yr: '/mo · billed $14.99/yr',
+    feats: [
+      'Everything in Free',
+      'Unlimited daily practice',
+      'Full Puzzle of the Day archive',
+      'Streak Shield (1 save/month)',
+      'Custom word dictionary',
+      '7-day free trial',
+    ],
     cta: 'Start Free Trial',
-    href: 'https://apps.apple.com/app/word-tiger/id000000000',
+    href: 'https://apps.apple.com/app/word-tigers/id6744100885',
     checkColor: '#f97316',
   },
   {
-    name: 'Pro', badge: 'ONE-TIME', best: false, nameColor: '#60a5fa',
-    mo: '$2.99', yr: '$2.99', period: 'one-time purchase',
-    feats: ['Everything in Free', 'Unlimited daily practice', 'Word of the Day', 'Online Versus'],
-    cta: 'Get Pro',
-    href: 'https://apps.apple.com/app/word-tiger/id000000000',
+    name: 'Pro Unlimited', badge: 'ONE-TIME', best: false, nameColor: '#60a5fa',
+    mo: '$9.99', yr: '$9.99', period: 'one-time · yours forever',
+    feats: [
+      'Everything in Free',
+      'Unlimited daily practice',
+      'Custom word dictionary',
+      'No recurring charges',
+    ],
+    cta: 'Get Pro Unlimited',
+    href: 'https://apps.apple.com/app/word-tigers/id6744100885',
     checkColor: '#4ade80',
   },
 ];
